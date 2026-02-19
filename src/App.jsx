@@ -10,14 +10,15 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+
   const [selectCategory, setSelectCategory] = useState('all');
   const [sortOrder, setSortOrder] = useState('asc');
 
   useEffect(() => {
-    const fetchProducts = async  () => {
+    const fetchProducts = async () => {
       try {
-        const response = await  fetch('https://fakestoreapi.com/products');
-        if(!response.ok) {
+        const response = await fetch('https://fakestoreapi.com/products');
+        if (!response.ok) {
           throw new Error('Error to charge products');
         }
         const data = await response.json();
@@ -63,25 +64,27 @@ function App() {
   }
 
   return (
-    <div>
+    <div className="min-h-screen bg-white font-sans text-gray-900">
       <Navbar cartCount={cart.length} />
-      <Filters
-        categories={categories}
-        selectCategory={selectCategory}
-        sortOrder={sortOrder}
-        onSortChange={() => setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc')}
-        onCategoryChange={setSelectCategory}
-      />
-      <div className="product-grid">
-        {filteredProducts.map(product => (
-          <ProductCard 
-            key={product.id} 
-            product={product} 
-            isInCart={cart.some(item => item.id === product.id)} 
-            onAddToCart={addToCart} 
-            onRemoveFromCart={removeFromCart} 
-          />
-        ))}
+      <div className="max-w-7xl mx-auto px-8 py-8">
+        <Filters
+          categories={categories}
+          selectCategory={selectCategory}
+          sortOrder={sortOrder}
+          onSortChange={() => setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc')}
+          onCategoryChange={setSelectCategory}
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-12">
+          {filteredProducts.map(product => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              isInCart={cart.some(item => item.id === product.id)}
+              onAddToCart={addToCart}
+              onRemoveFromCart={removeFromCart}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

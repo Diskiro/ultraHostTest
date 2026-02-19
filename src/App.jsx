@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import ProductCard from './ProductCard';
-import Filters from './Filters';
-import Navbar from './Navbar';
-import './App.css'
+import ProductCard from './components/ProductCard';
+import Filters from './components/Filters';
+import Navbar from './components/Navbar';
 
 function App() {
   const [products, setProducts] = useState([]);
